@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>27A42650-BF67-4950-83F5-54AA151E5EED</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ODGameOne</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D2948A0D-DFA7-4309-9C67-7C9692F6544B</key>
+		<string>https://github.com/Dachang/ODGame-Demo.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ODGameOne/ODGameOne.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D2948A0D-DFA7-4309-9C67-7C9692F6544B</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Dachang/ODGame-Demo.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D2948A0D-DFA7-4309-9C67-7C9692F6544B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D2948A0D-DFA7-4309-9C67-7C9692F6544B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ODGame-Demo</string>
+		</dict>
+	</array>
+</dict>
+</plist>

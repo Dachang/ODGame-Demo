@@ -1,0 +1,623 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		13D56AF817F335F100AE024E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AF717F335F100AE024E /* Foundation.framework */; };
+		13D56AFA17F335F100AE024E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AF917F335F100AE024E /* CoreGraphics.framework */; };
+		13D56AFC17F335F100AE024E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AFB17F335F100AE024E /* UIKit.framework */; };
+		13D56AFE17F335F100AE024E /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AFD17F335F100AE024E /* SpriteKit.framework */; };
+		13D56B0417F335F100AE024E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B0217F335F100AE024E /* InfoPlist.strings */; };
+		13D56B0617F335F100AE024E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D56B0517F335F100AE024E /* main.m */; };
+		13D56B0A17F335F100AE024E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D56B0917F335F100AE024E /* AppDelegate.m */; };
+		13D56B0D17F335F100AE024E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B0B17F335F100AE024E /* Main.storyboard */; };
+		13D56B1017F335F100AE024E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D56B0F17F335F100AE024E /* ViewController.m */; };
+		13D56B1317F335F100AE024E /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D56B1217F335F100AE024E /* MyScene.m */; };
+		13D56B1517F335F100AE024E /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B1417F335F100AE024E /* Spaceship.png */; };
+		13D56B1717F335F100AE024E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B1617F335F100AE024E /* Images.xcassets */; };
+		13D56B1E17F335F100AE024E /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56B1D17F335F100AE024E /* XCTest.framework */; };
+		13D56B1F17F335F100AE024E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AF717F335F100AE024E /* Foundation.framework */; };
+		13D56B2017F335F100AE024E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AFB17F335F100AE024E /* UIKit.framework */; };
+		13D56B2817F335F100AE024E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B2617F335F100AE024E /* InfoPlist.strings */; };
+		13D56B2A17F335F100AE024E /* ODGameOneTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D56B2917F335F100AE024E /* ODGameOneTests.m */; };
+		13D56B5017F33A2F00AE024E /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3517F33A2F00AE024E /* background.png */; };
+		13D56B5117F33A2F00AE024E /* background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3617F33A2F00AE024E /* background@2x.png */; };
+		13D56B5217F33A2F00AE024E /* MainMenu.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3717F33A2F00AE024E /* MainMenu.png */; };
+		13D56B5317F33A2F00AE024E /* MainMenu@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3817F33A2F00AE024E /* MainMenu@2x.png */; };
+		13D56B5417F33A2F00AE024E /* YouLose.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3917F33A2F00AE024E /* YouLose.png */; };
+		13D56B5517F33A2F00AE024E /* YouLose@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3A17F33A2F00AE024E /* YouLose@2x.png */; };
+		13D56B5617F33A2F00AE024E /* YouWin.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3B17F33A2F00AE024E /* YouWin.png */; };
+		13D56B5717F33A2F00AE024E /* YouWin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3C17F33A2F00AE024E /* YouWin@2x.png */; };
+		13D56B5817F33A2F00AE024E /* bgMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3E17F33A2F00AE024E /* bgMusic.mp3 */; };
+		13D56B5917F33A2F00AE024E /* hitCat.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B3F17F33A2F00AE024E /* hitCat.wav */; };
+		13D56B5A17F33A2F00AE024E /* hitCatLady.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4017F33A2F00AE024E /* hitCatLady.wav */; };
+		13D56B5B17F33A2F00AE024E /* lose.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4117F33A2F00AE024E /* lose.wav */; };
+		13D56B5C17F33A2F00AE024E /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4217F33A2F00AE024E /* win.wav */; };
+		13D56B5D17F33A2F00AE024E /* cat.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4417F33A2F00AE024E /* cat.png */; };
+		13D56B5E17F33A2F00AE024E /* cat@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4517F33A2F00AE024E /* cat@2x.png */; };
+		13D56B5F17F33A2F00AE024E /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4617F33A2F00AE024E /* enemy.png */; };
+		13D56B6017F33A2F00AE024E /* enemy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4717F33A2F00AE024E /* enemy@2x.png */; };
+		13D56B6117F33A2F00AE024E /* zombie1.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4817F33A2F00AE024E /* zombie1.png */; };
+		13D56B6217F33A2F00AE024E /* zombie1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4917F33A2F00AE024E /* zombie1@2x.png */; };
+		13D56B6317F33A2F00AE024E /* zombie2.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4A17F33A2F00AE024E /* zombie2.png */; };
+		13D56B6417F33A2F00AE024E /* zombie2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4B17F33A2F00AE024E /* zombie2@2x.png */; };
+		13D56B6517F33A2F00AE024E /* zombie3.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4C17F33A2F00AE024E /* zombie3.png */; };
+		13D56B6617F33A2F00AE024E /* zombie3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4D17F33A2F00AE024E /* zombie3@2x.png */; };
+		13D56B6717F33A2F00AE024E /* zombie4.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4E17F33A2F00AE024E /* zombie4.png */; };
+		13D56B6817F33A2F00AE024E /* zombie4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 13D56B4F17F33A2F00AE024E /* zombie4@2x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		13D56B2117F335F100AE024E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 13D56AEC17F335F100AE024E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13D56AF317F335F100AE024E;
+			remoteInfo = ODGameOne;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		13D56AF417F335F100AE024E /* ODGameOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ODGameOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13D56AF717F335F100AE024E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		13D56AF917F335F100AE024E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		13D56AFB17F335F100AE024E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		13D56AFD17F335F100AE024E /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		13D56B0117F335F100AE024E /* ODGameOne-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ODGameOne-Info.plist"; sourceTree = "<group>"; };
+		13D56B0317F335F100AE024E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		13D56B0517F335F100AE024E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		13D56B0717F335F100AE024E /* ODGameOne-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ODGameOne-Prefix.pch"; sourceTree = "<group>"; };
+		13D56B0817F335F100AE024E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		13D56B0917F335F100AE024E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		13D56B0C17F335F100AE024E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		13D56B0E17F335F100AE024E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		13D56B0F17F335F100AE024E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		13D56B1117F335F100AE024E /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
+		13D56B1217F335F100AE024E /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
+		13D56B1417F335F100AE024E /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		13D56B1617F335F100AE024E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		13D56B1C17F335F100AE024E /* ODGameOneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ODGameOneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		13D56B1D17F335F100AE024E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		13D56B2517F335F100AE024E /* ODGameOneTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ODGameOneTests-Info.plist"; sourceTree = "<group>"; };
+		13D56B2717F335F100AE024E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		13D56B2917F335F100AE024E /* ODGameOneTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ODGameOneTests.m; sourceTree = "<group>"; };
+		13D56B3517F33A2F00AE024E /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
+		13D56B3617F33A2F00AE024E /* background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "background@2x.png"; sourceTree = "<group>"; };
+		13D56B3717F33A2F00AE024E /* MainMenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainMenu.png; sourceTree = "<group>"; };
+		13D56B3817F33A2F00AE024E /* MainMenu@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainMenu@2x.png"; sourceTree = "<group>"; };
+		13D56B3917F33A2F00AE024E /* YouLose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YouLose.png; sourceTree = "<group>"; };
+		13D56B3A17F33A2F00AE024E /* YouLose@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "YouLose@2x.png"; sourceTree = "<group>"; };
+		13D56B3B17F33A2F00AE024E /* YouWin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = YouWin.png; sourceTree = "<group>"; };
+		13D56B3C17F33A2F00AE024E /* YouWin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "YouWin@2x.png"; sourceTree = "<group>"; };
+		13D56B3E17F33A2F00AE024E /* bgMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgMusic.mp3; sourceTree = "<group>"; };
+		13D56B3F17F33A2F00AE024E /* hitCat.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCat.wav; sourceTree = "<group>"; };
+		13D56B4017F33A2F00AE024E /* hitCatLady.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = hitCatLady.wav; sourceTree = "<group>"; };
+		13D56B4117F33A2F00AE024E /* lose.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lose.wav; sourceTree = "<group>"; };
+		13D56B4217F33A2F00AE024E /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
+		13D56B4417F33A2F00AE024E /* cat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cat.png; sourceTree = "<group>"; };
+		13D56B4517F33A2F00AE024E /* cat@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cat@2x.png"; sourceTree = "<group>"; };
+		13D56B4617F33A2F00AE024E /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
+		13D56B4717F33A2F00AE024E /* enemy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "enemy@2x.png"; sourceTree = "<group>"; };
+		13D56B4817F33A2F00AE024E /* zombie1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zombie1.png; sourceTree = "<group>"; };
+		13D56B4917F33A2F00AE024E /* zombie1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zombie1@2x.png"; sourceTree = "<group>"; };
+		13D56B4A17F33A2F00AE024E /* zombie2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zombie2.png; sourceTree = "<group>"; };
+		13D56B4B17F33A2F00AE024E /* zombie2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zombie2@2x.png"; sourceTree = "<group>"; };
+		13D56B4C17F33A2F00AE024E /* zombie3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zombie3.png; sourceTree = "<group>"; };
+		13D56B4D17F33A2F00AE024E /* zombie3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zombie3@2x.png"; sourceTree = "<group>"; };
+		13D56B4E17F33A2F00AE024E /* zombie4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = zombie4.png; sourceTree = "<group>"; };
+		13D56B4F17F33A2F00AE024E /* zombie4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "zombie4@2x.png"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		13D56AF117F335F100AE024E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13D56AFA17F335F100AE024E /* CoreGraphics.framework in Frameworks */,
+				13D56AFC17F335F100AE024E /* UIKit.framework in Frameworks */,
+				13D56AFE17F335F100AE024E /* SpriteKit.framework in Frameworks */,
+				13D56AF817F335F100AE024E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13D56B1917F335F100AE024E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13D56B1E17F335F100AE024E /* XCTest.framework in Frameworks */,
+				13D56B2017F335F100AE024E /* UIKit.framework in Frameworks */,
+				13D56B1F17F335F100AE024E /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13D56AEB17F335F100AE024E = {
+			isa = PBXGroup;
+			children = (
+				13D56B3317F33A2F00AE024E /* Art */,
+				13D56AFF17F335F100AE024E /* ODGameOne */,
+				13D56B2317F335F100AE024E /* ODGameOneTests */,
+				13D56AF617F335F100AE024E /* Frameworks */,
+				13D56AF517F335F100AE024E /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		13D56AF517F335F100AE024E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13D56AF417F335F100AE024E /* ODGameOne.app */,
+				13D56B1C17F335F100AE024E /* ODGameOneTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		13D56AF617F335F100AE024E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				13D56AF717F335F100AE024E /* Foundation.framework */,
+				13D56AF917F335F100AE024E /* CoreGraphics.framework */,
+				13D56AFB17F335F100AE024E /* UIKit.framework */,
+				13D56AFD17F335F100AE024E /* SpriteKit.framework */,
+				13D56B1D17F335F100AE024E /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		13D56AFF17F335F100AE024E /* ODGameOne */ = {
+			isa = PBXGroup;
+			children = (
+				13D56B0817F335F100AE024E /* AppDelegate.h */,
+				13D56B0917F335F100AE024E /* AppDelegate.m */,
+				13D56B0B17F335F100AE024E /* Main.storyboard */,
+				13D56B0E17F335F100AE024E /* ViewController.h */,
+				13D56B0F17F335F100AE024E /* ViewController.m */,
+				13D56B1117F335F100AE024E /* MyScene.h */,
+				13D56B1217F335F100AE024E /* MyScene.m */,
+				13D56B1417F335F100AE024E /* Spaceship.png */,
+				13D56B1617F335F100AE024E /* Images.xcassets */,
+				13D56B0017F335F100AE024E /* Supporting Files */,
+			);
+			path = ODGameOne;
+			sourceTree = "<group>";
+		};
+		13D56B0017F335F100AE024E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				13D56B0117F335F100AE024E /* ODGameOne-Info.plist */,
+				13D56B0217F335F100AE024E /* InfoPlist.strings */,
+				13D56B0517F335F100AE024E /* main.m */,
+				13D56B0717F335F100AE024E /* ODGameOne-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13D56B2317F335F100AE024E /* ODGameOneTests */ = {
+			isa = PBXGroup;
+			children = (
+				13D56B2917F335F100AE024E /* ODGameOneTests.m */,
+				13D56B2417F335F100AE024E /* Supporting Files */,
+			);
+			path = ODGameOneTests;
+			sourceTree = "<group>";
+		};
+		13D56B2417F335F100AE024E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				13D56B2517F335F100AE024E /* ODGameOneTests-Info.plist */,
+				13D56B2617F335F100AE024E /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		13D56B3317F33A2F00AE024E /* Art */ = {
+			isa = PBXGroup;
+			children = (
+				13D56B3417F33A2F00AE024E /* Backgrounds */,
+				13D56B3D17F33A2F00AE024E /* Sounds */,
+				13D56B4317F33A2F00AE024E /* sprites */,
+			);
+			path = Art;
+			sourceTree = "<group>";
+		};
+		13D56B3417F33A2F00AE024E /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				13D56B3517F33A2F00AE024E /* background.png */,
+				13D56B3617F33A2F00AE024E /* background@2x.png */,
+				13D56B3717F33A2F00AE024E /* MainMenu.png */,
+				13D56B3817F33A2F00AE024E /* MainMenu@2x.png */,
+				13D56B3917F33A2F00AE024E /* YouLose.png */,
+				13D56B3A17F33A2F00AE024E /* YouLose@2x.png */,
+				13D56B3B17F33A2F00AE024E /* YouWin.png */,
+				13D56B3C17F33A2F00AE024E /* YouWin@2x.png */,
+			);
+			path = Backgrounds;
+			sourceTree = "<group>";
+		};
+		13D56B3D17F33A2F00AE024E /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				13D56B3E17F33A2F00AE024E /* bgMusic.mp3 */,
+				13D56B3F17F33A2F00AE024E /* hitCat.wav */,
+				13D56B4017F33A2F00AE024E /* hitCatLady.wav */,
+				13D56B4117F33A2F00AE024E /* lose.wav */,
+				13D56B4217F33A2F00AE024E /* win.wav */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		13D56B4317F33A2F00AE024E /* sprites */ = {
+			isa = PBXGroup;
+			children = (
+				13D56B4417F33A2F00AE024E /* cat.png */,
+				13D56B4517F33A2F00AE024E /* cat@2x.png */,
+				13D56B4617F33A2F00AE024E /* enemy.png */,
+				13D56B4717F33A2F00AE024E /* enemy@2x.png */,
+				13D56B4817F33A2F00AE024E /* zombie1.png */,
+				13D56B4917F33A2F00AE024E /* zombie1@2x.png */,
+				13D56B4A17F33A2F00AE024E /* zombie2.png */,
+				13D56B4B17F33A2F00AE024E /* zombie2@2x.png */,
+				13D56B4C17F33A2F00AE024E /* zombie3.png */,
+				13D56B4D17F33A2F00AE024E /* zombie3@2x.png */,
+				13D56B4E17F33A2F00AE024E /* zombie4.png */,
+				13D56B4F17F33A2F00AE024E /* zombie4@2x.png */,
+			);
+			path = sprites;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		13D56AF317F335F100AE024E /* ODGameOne */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13D56B2D17F335F100AE024E /* Build configuration list for PBXNativeTarget "ODGameOne" */;
+			buildPhases = (
+				13D56AF017F335F100AE024E /* Sources */,
+				13D56AF117F335F100AE024E /* Frameworks */,
+				13D56AF217F335F100AE024E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ODGameOne;
+			productName = ODGameOne;
+			productReference = 13D56AF417F335F100AE024E /* ODGameOne.app */;
+			productType = "com.apple.product-type.application";
+		};
+		13D56B1B17F335F100AE024E /* ODGameOneTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13D56B3017F335F100AE024E /* Build configuration list for PBXNativeTarget "ODGameOneTests" */;
+			buildPhases = (
+				13D56B1817F335F100AE024E /* Sources */,
+				13D56B1917F335F100AE024E /* Frameworks */,
+				13D56B1A17F335F100AE024E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				13D56B2217F335F100AE024E /* PBXTargetDependency */,
+			);
+			name = ODGameOneTests;
+			productName = ODGameOneTests;
+			productReference = 13D56B1C17F335F100AE024E /* ODGameOneTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		13D56AEC17F335F100AE024E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "大畅";
+				TargetAttributes = {
+					13D56B1B17F335F100AE024E = {
+						TestTargetID = 13D56AF317F335F100AE024E;
+					};
+				};
+			};
+			buildConfigurationList = 13D56AEF17F335F100AE024E /* Build configuration list for PBXProject "ODGameOne" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 13D56AEB17F335F100AE024E;
+			productRefGroup = 13D56AF517F335F100AE024E /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13D56AF317F335F100AE024E /* ODGameOne */,
+				13D56B1B17F335F100AE024E /* ODGameOneTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		13D56AF217F335F100AE024E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13D56B5D17F33A2F00AE024E /* cat.png in Resources */,
+				13D56B6417F33A2F00AE024E /* zombie2@2x.png in Resources */,
+				13D56B5817F33A2F00AE024E /* bgMusic.mp3 in Resources */,
+				13D56B5F17F33A2F00AE024E /* enemy.png in Resources */,
+				13D56B0417F335F100AE024E /* InfoPlist.strings in Resources */,
+				13D56B5517F33A2F00AE024E /* YouLose@2x.png in Resources */,
+				13D56B5217F33A2F00AE024E /* MainMenu.png in Resources */,
+				13D56B6017F33A2F00AE024E /* enemy@2x.png in Resources */,
+				13D56B5017F33A2F00AE024E /* background.png in Resources */,
+				13D56B1717F335F100AE024E /* Images.xcassets in Resources */,
+				13D56B6217F33A2F00AE024E /* zombie1@2x.png in Resources */,
+				13D56B1517F335F100AE024E /* Spaceship.png in Resources */,
+				13D56B5B17F33A2F00AE024E /* lose.wav in Resources */,
+				13D56B5917F33A2F00AE024E /* hitCat.wav in Resources */,
+				13D56B5417F33A2F00AE024E /* YouLose.png in Resources */,
+				13D56B6117F33A2F00AE024E /* zombie1.png in Resources */,
+				13D56B6717F33A2F00AE024E /* zombie4.png in Resources */,
+				13D56B6617F33A2F00AE024E /* zombie3@2x.png in Resources */,
+				13D56B5117F33A2F00AE024E /* background@2x.png in Resources */,
+				13D56B5617F33A2F00AE024E /* YouWin.png in Resources */,
+				13D56B5717F33A2F00AE024E /* YouWin@2x.png in Resources */,
+				13D56B5A17F33A2F00AE024E /* hitCatLady.wav in Resources */,
+				13D56B5E17F33A2F00AE024E /* cat@2x.png in Resources */,
+				13D56B6517F33A2F00AE024E /* zombie3.png in Resources */,
+				13D56B5317F33A2F00AE024E /* MainMenu@2x.png in Resources */,
+				13D56B5C17F33A2F00AE024E /* win.wav in Resources */,
+				13D56B6317F33A2F00AE024E /* zombie2.png in Resources */,
+				13D56B0D17F335F100AE024E /* Main.storyboard in Resources */,
+				13D56B6817F33A2F00AE024E /* zombie4@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13D56B1A17F335F100AE024E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13D56B2817F335F100AE024E /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		13D56AF017F335F100AE024E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13D56B1317F335F100AE024E /* MyScene.m in Sources */,
+				13D56B1017F335F100AE024E /* ViewController.m in Sources */,
+				13D56B0A17F335F100AE024E /* AppDelegate.m in Sources */,
+				13D56B0617F335F100AE024E /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13D56B1817F335F100AE024E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13D56B2A17F335F100AE024E /* ODGameOneTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		13D56B2217F335F100AE024E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13D56AF317F335F100AE024E /* ODGameOne */;
+			targetProxy = 13D56B2117F335F100AE024E /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		13D56B0217F335F100AE024E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13D56B0317F335F100AE024E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		13D56B0B17F335F100AE024E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13D56B0C17F335F100AE024E /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		13D56B2617F335F100AE024E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13D56B2717F335F100AE024E /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		13D56B2B17F335F100AE024E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		13D56B2C17F335F100AE024E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		13D56B2E17F335F100AE024E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ODGameOne/ODGameOne-Prefix.pch";
+				INFOPLIST_FILE = "ODGameOne/ODGameOne-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		13D56B2F17F335F100AE024E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ODGameOne/ODGameOne-Prefix.pch";
+				INFOPLIST_FILE = "ODGameOne/ODGameOne-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		13D56B3117F335F100AE024E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ODGameOne.app/ODGameOne";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ODGameOne/ODGameOne-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "ODGameOneTests/ODGameOneTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		13D56B3217F335F100AE024E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/ODGameOne.app/ODGameOne";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ODGameOne/ODGameOne-Prefix.pch";
+				INFOPLIST_FILE = "ODGameOneTests/ODGameOneTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		13D56AEF17F335F100AE024E /* Build configuration list for PBXProject "ODGameOne" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13D56B2B17F335F100AE024E /* Debug */,
+				13D56B2C17F335F100AE024E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13D56B2D17F335F100AE024E /* Build configuration list for PBXNativeTarget "ODGameOne" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13D56B2E17F335F100AE024E /* Debug */,
+				13D56B2F17F335F100AE024E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		13D56B3017F335F100AE024E /* Build configuration list for PBXNativeTarget "ODGameOneTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13D56B3117F335F100AE024E /* Debug */,
+				13D56B3217F335F100AE024E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 13D56AEC17F335F100AE024E /* Project object */;
+}
