@@ -8,7 +8,60 @@
 
 #import "MyScene.h"
 
+#pragma mark - math utilities
+
+static inline CGPoint CGPointAdd(const CGPoint a, const CGPoint b)
+{
+    return CGPointMake(a.x + b.x, a.y + b.y);
+}
+
+static inline CGPoint CGPointSubstract(const CGPoint a, const CGPoint b)
+{
+    return CGPointMake(a.x - b.x, a.y - b.y);
+}
+
+static inline CGPoint CGPointMultiplyScalar(const CGPoint a, const CGFloat b)
+{
+    return CGPointMake(a.x * b, a.y * b);
+}
+
+static inline CGFloat CGPointLength(const CGPoint a)
+{
+    return sqrtf(a.x * a.x + a.y * a.y);
+}
+
+static inline CGPoint CGPointNormalize(const CGPoint a)
+{
+    CGFloat length = CGPointLength(a);
+    return CGPointMake(a.x / length, a.y / length);
+}
+
+static inline CGFloat CGPointToAngle(const CGPoint a)
+{
+    return atan2f(a.y, a.x);
+}
+
+static inline CGFloat ScalarSign(CGFloat a)
+{
+    return a >= 0 ? 1 : -1;
+}
+
+//return shortest angle between two angles, between -M_PI and M_PI
+static inline CGFloat ScalarShortestAngleBetween(const CGFloat a, const CGFloat b)
+{
+    CGFloat difference = b - a;
+    CGFloat angle = fmodf(difference, M_PI * 2);
+    if(angle > M_PI)
+    {
+        angle -= M_PI*2;
+    }
+    return angle;
+}
+
+#pragma mark - constant variables
+
 static const float ZOMBIE_MOVE_POINTS_PER_SEC = 120.0;
+static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 
 @implementation MyScene
 {
@@ -16,6 +69,7 @@ static const float ZOMBIE_MOVE_POINTS_PER_SEC = 120.0;
     NSTimeInterval _lastUpdateTime;
     NSTimeInterval _dt;
     CGPoint _velocity; //here CGPoint is used to represent a 2D vector
+    CGPoint _lastTouchedLocation;
 }
 
 - (id) initWithSize:(CGSize)size
@@ -48,25 +102,35 @@ static const float ZOMBIE_MOVE_POINTS_PER_SEC = 120.0;
         _dt = 0;
     }
     _lastUpdateTime = currentTime;
-    [self moveSprite:_zombie velocity:_velocity];
-    [self bounceCheckPlayer];
-    [self rotateSprite:_zombie toDirection:_velocity];
+    
+    CGPoint offset = CGPointSubstract(_lastTouchedLocation, _zombie.position);
+    CGFloat remainLength = CGPointLength(offset);
+    if(remainLength < ZOMBIE_MOVE_POINTS_PER_SEC * _dt)
+    {
+        _zombie.position = _lastTouchedLocation;
+        _velocity = CGPointZero;
+    }
+    else
+    {
+        [self moveSprite:_zombie velocity:_velocity];
+        [self bounceCheckPlayer];
+        [self rotateSprite:_zombie toDirection:_velocity rotateRadiansPerSec:ZOMBIE_ROTATE_RADIANS_PER_SEC];
+    }
 }
 
 - (void)moveSprite:(SKSpriteNode*)sprite velocity:(CGPoint)velocity
 {
-    CGPoint amountToMove = CGPointMake(velocity.x * _dt, velocity.y * _dt);
-    sprite.position = CGPointMake(sprite.position.x + amountToMove.x, sprite.position.y + amountToMove.y);
+    CGPoint amountToMove = CGPointMultiplyScalar(velocity, _dt);
+    sprite.position = CGPointAdd(sprite.position, amountToMove);
 }
 
 - (void)moveZombieToward:(CGPoint)location
 {
-    CGPoint offset = CGPointMake(location.x - _zombie.position.x, location.y - _zombie.position.y);
-    CGFloat length = sqrtf(offset.x * offset.x + offset.y * offset.y);
-    CGPoint direction = CGPointMake(offset.x/length, offset.y/length);
-    _velocity = CGPointMake(direction.x * ZOMBIE_MOVE_POINTS_PER_SEC, direction.y * ZOMBIE_MOVE_POINTS_PER_SEC);
+    _lastTouchedLocation = location;
+    CGPoint offset = CGPointSubstract(location, _zombie.position);
+    CGPoint direction = CGPointNormalize(offset);
+    _velocity = CGPointMultiplyScalar(direction, ZOMBIE_MOVE_POINTS_PER_SEC);
 }
-
 #pragma mark - touch handler
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -125,10 +189,15 @@ static const float ZOMBIE_MOVE_POINTS_PER_SEC = 120.0;
 }
 
 #pragma mark - rotate sprite
-- (void)rotateSprite:(SKSpriteNode*)sprite toDirection:(CGPoint)direction
+- (void)rotateSprite:(SKSpriteNode*)sprite toDirection:(CGPoint)direction rotateRadiansPerSec:(CGFloat)rotateRadiansPerSec
 {
-    CGFloat rotateAngle = atan2f(direction.y, direction.x);
-    sprite.zRotation = rotateAngle;
+    CGFloat currentAngle = sprite.zRotation;
+    CGFloat rotateAngle = CGPointToAngle(direction);
+
+    CGFloat shortest =ScalarShortestAngleBetween(currentAngle, rotateAngle);
+    CGFloat amountToRotate = ABS(shortest) < ABS(rotateRadiansPerSec * _dt) ? ABS(shortest) : rotateRadiansPerSec * _dt;
+    
+    sprite.zRotation += ScalarSign(shortest) * amountToRotate;
 }
 
 @end
