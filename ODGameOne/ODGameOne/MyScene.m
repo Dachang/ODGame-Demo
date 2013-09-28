@@ -8,6 +8,8 @@
 
 #import "MyScene.h"
 
+#define ARC4RANDOM_MAX 0x100000000
+
 #pragma mark - math utilities
 
 static inline CGPoint CGPointAdd(const CGPoint a, const CGPoint b)
@@ -46,6 +48,11 @@ static inline CGFloat ScalarSign(CGFloat a)
     return a >= 0 ? 1 : -1;
 }
 
+static inline CGFloat ScalarRandomRange(CGFloat min, CGFloat max)
+{
+    return floorf(((double)arc4random() / ARC4RANDOM_MAX) * (max - min) + min);
+}
+
 //return shortest angle between two angles, between -M_PI and M_PI
 static inline CGFloat ScalarShortestAngleBetween(const CGFloat a, const CGFloat b)
 {
@@ -70,6 +77,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     NSTimeInterval _dt;
     CGPoint _velocity; //here CGPoint is used to represent a 2D vector
     CGPoint _lastTouchedLocation;
+    SKAction *_zombieAnimation;
 }
 
 - (id) initWithSize:(CGSize)size
@@ -83,10 +91,28 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         //create zombie
         _zombie = [SKSpriteNode spriteNodeWithImageNamed:@"zombie1"];
         _zombie.position = CGPointMake(100.0f, 100.0f);
-//        [_zombie setScale:2.0];
-        
+        //add to scene
         [self addChild:bg];
         [self addChild:_zombie];
+        //create zombie animation
+        NSMutableArray *textures = [NSMutableArray arrayWithCapacity:10];
+        for (int i = 1; i < 4; i++)
+        {
+            NSString *textureName = [NSString stringWithFormat:@"zombie%d", i];
+            SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+            [textures addObject:texture];
+        }
+        for (int i = 4; i > 1; i--)
+        {
+            NSString *textureName = [NSString stringWithFormat:@"zombie%d",i];
+            SKTexture *texture = [SKTexture textureWithImageNamed:textureName];
+            [textures addObject:texture];
+        }
+        _zombieAnimation = [SKAction animateWithTextures:textures timePerFrame:0.1];
+        [_zombie runAction:[SKAction repeatActionForever:_zombieAnimation]];
+        //create enemy
+        [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction performSelector:@selector(spawnEnemy) onTarget:self], [SKAction waitForDuration:2.0]]]]];
+         
     }
     return self;
 }
@@ -198,6 +224,19 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     CGFloat amountToRotate = ABS(shortest) < ABS(rotateRadiansPerSec * _dt) ? ABS(shortest) : rotateRadiansPerSec * _dt;
     
     sprite.zRotation += ScalarSign(shortest) * amountToRotate;
+}
+
+#pragma mark - spawn enemies
+- (void)spawnEnemy
+{
+    SKSpriteNode *enemy = [[SKSpriteNode alloc] initWithImageNamed:@"enemy"];
+    enemy.position = CGPointMake(self.size.width + enemy.size.width/2, ScalarRandomRange(enemy.size.height/2, self.size.height - enemy.size.height/2));
+    [self addChild:enemy];
+    
+    SKAction *actionMove = [SKAction moveToX:-enemy.size.width/2 duration:2.0];
+    //removeFromParent removes the node that's running the action from its parent
+    SKAction *actionRemove = [SKAction removeFromParent];
+    [enemy runAction:[SKAction sequence:@[actionMove, actionRemove]]];
 }
 
 @end
