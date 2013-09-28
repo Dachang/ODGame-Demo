@@ -68,6 +68,7 @@ static inline CGFloat ScalarShortestAngleBetween(const CGFloat a, const CGFloat 
 #pragma mark - constant variables
 
 static const float ZOMBIE_MOVE_POINTS_PER_SEC = 120.0;
+static const float CAT_MOVE_POINTS_PER_SEC = 120.0;
 static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 
 @implementation MyScene
@@ -78,6 +79,10 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     CGPoint _velocity; //here CGPoint is used to represent a 2D vector
     CGPoint _lastTouchedLocation;
     SKAction *_zombieAnimation;
+    SKAction *_catCollisionSound;
+    SKAction *_enemyCollisionSound;
+    SKAction *_zombieBlinkAction;
+    BOOL _isZombieInvincible;
 }
 
 - (id) initWithSize:(CGSize)size
@@ -91,6 +96,8 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         //create zombie
         _zombie = [SKSpriteNode spriteNodeWithImageNamed:@"zombie1"];
         _zombie.position = CGPointMake(100.0f, 100.0f);
+        _zombie.zPosition = 100;
+        _isZombieInvincible = NO;
         //add to scene
         [self addChild:bg];
         [self addChild:_zombie];
@@ -109,10 +116,12 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
             [textures addObject:texture];
         }
         _zombieAnimation = [SKAction animateWithTextures:textures timePerFrame:0.1];
-        [_zombie runAction:[SKAction repeatActionForever:_zombieAnimation]];
         //create enemy
         [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction performSelector:@selector(spawnEnemy) onTarget:self], [SKAction waitForDuration:2.0]]]]];
-         
+        //create cat
+        [self runAction:[SKAction repeatActionForever:[SKAction sequence:@[[SKAction performSelector:@selector(spawnCat) onTarget:self], [SKAction waitForDuration:1.0]]]]];
+        _catCollisionSound = [SKAction playSoundFileNamed:@"hitCat.wav" waitForCompletion:NO];
+        _enemyCollisionSound = [SKAction playSoundFileNamed:@"hitCatLady.wav" waitForCompletion:NO];
     }
     return self;
 }
@@ -135,6 +144,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     {
         _zombie.position = _lastTouchedLocation;
         _velocity = CGPointZero;
+        [self stopZombieAnimation];
     }
     else
     {
@@ -142,6 +152,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         [self bounceCheckPlayer];
         [self rotateSprite:_zombie toDirection:_velocity rotateRadiansPerSec:ZOMBIE_ROTATE_RADIANS_PER_SEC];
     }
+    [self moveTrain];
 }
 
 - (void)moveSprite:(SKSpriteNode*)sprite velocity:(CGPoint)velocity
@@ -152,6 +163,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 
 - (void)moveZombieToward:(CGPoint)location
 {
+    [self startZombieAnimation];
     _lastTouchedLocation = location;
     CGPoint offset = CGPointSubstract(location, _zombie.position);
     CGPoint direction = CGPointNormalize(offset);
@@ -230,6 +242,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 - (void)spawnEnemy
 {
     SKSpriteNode *enemy = [[SKSpriteNode alloc] initWithImageNamed:@"enemy"];
+    enemy.name = @"enemy";
     enemy.position = CGPointMake(self.size.width + enemy.size.width/2, ScalarRandomRange(enemy.size.height/2, self.size.height - enemy.size.height/2));
     [self addChild:enemy];
     
@@ -237,6 +250,125 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     //removeFromParent removes the node that's running the action from its parent
     SKAction *actionRemove = [SKAction removeFromParent];
     [enemy runAction:[SKAction sequence:@[actionMove, actionRemove]]];
+}
+
+#pragma mark - spawn cats
+
+- (void)spawnCat
+{
+    SKSpriteNode *cat = [SKSpriteNode spriteNodeWithImageNamed:@"cat"];
+    cat.name = @"cat";
+    cat.position = CGPointMake(ScalarRandomRange(0, self.size
+                                                 .width), ScalarRandomRange(0, self.size.height));
+    cat.xScale = 0;
+    cat.yScale = 0;
+    cat.zRotation = 0;
+    [self addChild:cat];
+    
+    SKAction *appear = [SKAction scaleTo:1.0 duration:0.5];
+    SKAction *leftWiggle = [SKAction rotateByAngle:M_PI/8 duration:0.5];
+    SKAction *rightWiggle = [leftWiggle reversedAction];
+    SKAction *fullwiggle = [SKAction sequence:@[leftWiggle, rightWiggle]];
+    SKAction *scaleUp = [SKAction scaleBy:1.2 duration:0.25];
+    SKAction *scaleDown = [scaleUp reversedAction];
+    SKAction *fullScale = [SKAction sequence:@[scaleUp, scaleDown, scaleUp, scaleDown]];
+    SKAction *group = [SKAction group:@[fullScale, fullwiggle]];
+    SKAction *groupWait = [SKAction repeatAction:group count:10];
+    SKAction *disappear = [SKAction scaleTo:0.0 duration:0.5];
+    SKAction *remove = [SKAction removeFromParent];
+    [cat runAction:[SKAction sequence:@[appear, groupWait, disappear, remove]]];
+}
+
+#pragma mark - start & stop animation
+
+- (void)startZombieAnimation
+{
+    if(![_zombie actionForKey:@"animation"])
+    {
+        [_zombie runAction:[SKAction repeatActionForever:_zombieAnimation] withKey:@"animation"];
+    }
+}
+
+- (void)stopZombieAnimation
+{
+    [_zombie removeActionForKey:@"animation"];
+}
+
+#pragma mark - blink animation
+
+- (void)blinkAnimation
+{
+    float blinkTimes = 10;
+    float blinkDuration = 3.0;
+    _zombieBlinkAction = [SKAction customActionWithDuration:blinkDuration actionBlock:^(SKNode *node, CGFloat elapsedTime){
+        float slice = blinkDuration / blinkTimes;
+        float remainder = fmodf(elapsedTime, slice);
+        node.hidden = remainder > slice / 2;
+    }];
+}
+
+#pragma mark - check collisions
+
+- (void)checkCollisions
+{
+    [self enumerateChildNodesWithName:@"cat" usingBlock:^(SKNode *node, BOOL *stop){
+        SKSpriteNode *cat = (SKSpriteNode*)node;
+        if(CGRectIntersectsRect(cat.frame, _zombie.frame))
+        {
+            [self runAction:_catCollisionSound];
+            cat.name = @"train";
+            [cat removeAllActions];
+            [cat setScale:1.0];
+            cat.zRotation = 0;
+            [cat runAction:[SKAction colorizeWithColor:[SKColor greenColor] colorBlendFactor:1.0 duration:0.2]];
+        }
+    }];
+    
+    if (_isZombieInvincible) return;
+    
+    [self enumerateChildNodesWithName:@"enemy" usingBlock:^(SKNode *node, BOOL *stop){
+        SKSpriteNode *enemy = (SKSpriteNode*)node;
+        //shrink the collider box a little bit
+        CGRect smallerFrame = CGRectInset(enemy.frame, 20, 20);
+        if(CGRectIntersectsRect(smallerFrame, _zombie.frame))
+        {
+            [self runAction:_enemyCollisionSound];
+            _isZombieInvincible = YES;
+            [self blinkAnimation];
+            SKAction *sequence = [SKAction sequence:@[_zombieBlinkAction, [SKAction runBlock:^{
+                _zombie.hidden = NO;
+                _isZombieInvincible = NO;
+            }]]];
+            [_zombie runAction:sequence];
+        }
+    }];
+}
+
+#pragma mark - did evaluate actions
+
+- (void)didEvaluateActions
+{
+    [self checkCollisions];
+}
+
+#pragma mark - generate cat flow
+
+- (void)moveTrain
+{
+    __block CGPoint targetPosition = _zombie.position;
+    [self enumerateChildNodesWithName:@"train" usingBlock:^(SKNode *node, BOOL *stop){
+        if(!node.hasActions)
+        {
+            float actionDuration = 0.3;
+            CGPoint offset = CGPointSubstract(targetPosition, node.position);
+            CGPoint direction = CGPointNormalize(offset);
+            CGPoint amountToMovePerSec = CGPointMultiplyScalar(direction, CAT_MOVE_POINTS_PER_SEC);
+            CGPoint amountToMove = CGPointMultiplyScalar(amountToMovePerSec, actionDuration);
+            SKAction *moveAction = [SKAction moveByX:amountToMove.x y:amountToMove.y duration:actionDuration];
+            [node runAction:moveAction];
+        }
+        targetPosition = node.position;
+    }];
 }
 
 @end
