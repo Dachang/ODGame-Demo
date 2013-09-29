@@ -71,6 +71,7 @@ static inline CGFloat ScalarShortestAngleBetween(const CGFloat a, const CGFloat 
 
 static const float ZOMBIE_MOVE_POINTS_PER_SEC = 120.0;
 static const float CAT_MOVE_POINTS_PER_SEC = 120.0;
+static const float BG_MOVE_POINTS_PER_SEC = 50.0;
 static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 
 @implementation MyScene
@@ -88,6 +89,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     int _lives;
     BOOL _gameOver;
     AVAudioPlayer *_backgroundMusicPlayer;
+    SKNode *_bgLayer; //create an empty node that is treated as the "background layer"
 }
 
 - (id) initWithSize:(CGSize)size
@@ -98,9 +100,17 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         _lives = 5;
         _gameOver = NO;
         //create bg
+        _bgLayer = [SKNode node];
+        [self addChild:_bgLayer];
         self.backgroundColor = [SKColor whiteColor];
-        SKSpriteNode *bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-        bg.position = CGPointMake(self.size.width/2, self.size.height/2);
+        for (int i = 0; i < 2; i++)
+        {
+            SKSpriteNode *bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+            bg.anchorPoint = CGPointZero;
+            bg.position = CGPointMake(i * bg.size.width, 0);
+            bg.name = @"bg";
+            [_bgLayer addChild:bg];
+        }
         //create background music
         [self playBackgroundMusic:@"bgMusic.mp3"];
         //create zombie
@@ -108,9 +118,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         _zombie.position = CGPointMake(100.0f, 100.0f);
         _zombie.zPosition = 100;
         _isZombieInvincible = NO;
-        //add to scene
-        [self addChild:bg];
-        [self addChild:_zombie];
+        [_bgLayer addChild:_zombie];
         //create zombie animation
         NSMutableArray *textures = [NSMutableArray arrayWithCapacity:10];
         for (int i = 1; i < 4; i++)
@@ -148,21 +156,22 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     }
     _lastUpdateTime = currentTime;
     
-    CGPoint offset = CGPointSubstract(_lastTouchedLocation, _zombie.position);
-    CGFloat remainLength = CGPointLength(offset);
-    if(remainLength < ZOMBIE_MOVE_POINTS_PER_SEC * _dt)
-    {
-        _zombie.position = _lastTouchedLocation;
-        _velocity = CGPointZero;
-        [self stopZombieAnimation];
-    }
-    else
-    {
+//    CGPoint offset = CGPointSubstract(_lastTouchedLocation, _zombie.position);
+//    CGFloat remainLength = CGPointLength(offset);
+//    if(remainLength < ZOMBIE_MOVE_POINTS_PER_SEC * _dt)
+//    {
+//        _zombie.position = _lastTouchedLocation;
+//        _velocity = CGPointZero;
+//        [self stopZombieAnimation];
+//    }
+//    else
+//    {
         [self moveSprite:_zombie velocity:_velocity];
         [self bounceCheckPlayer];
         [self rotateSprite:_zombie toDirection:_velocity rotateRadiansPerSec:ZOMBIE_ROTATE_RADIANS_PER_SEC];
-    }
+//    }
     [self moveTrain];
+    [self moveBackground];
     //check lose condition
     if(_lives < 0 && !_gameOver)
     {
@@ -193,21 +202,21 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInNode:self.scene];
+    CGPoint touchLocation = [touch locationInNode:_bgLayer];
     [self moveZombieToward:touchLocation];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInNode:self.scene];
+    CGPoint touchLocation = [touch locationInNode:_bgLayer];
     [self moveZombieToward:touchLocation];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = [touches anyObject];
-    CGPoint touchLocation = [touch locationInNode:self.scene];
+    CGPoint touchLocation = [touch locationInNode:_bgLayer];
     [self moveZombieToward:touchLocation];
 }
 
@@ -216,9 +225,9 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 {
     CGPoint newPostion = _zombie.position;
     CGPoint newVeloctiy = _velocity;
-    
-    CGPoint leftBottom= CGPointZero;
-    CGPoint rightTop = CGPointMake(self.size.width, self.size.height);
+    //here used the convertPoint:fromNode: methods to convert points from one coordinate system to another
+    CGPoint leftBottom= [_bgLayer convertPoint:CGPointZero fromNode:self];
+    CGPoint rightTop = [_bgLayer convertPoint:CGPointMake(self.size.width, self.size.height) fromNode:self];
     
     if(newPostion.x <= leftBottom.x)
     {
@@ -262,10 +271,11 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 {
     SKSpriteNode *enemy = [[SKSpriteNode alloc] initWithImageNamed:@"enemy"];
     enemy.name = @"enemy";
-    enemy.position = CGPointMake(self.size.width + enemy.size.width/2, ScalarRandomRange(enemy.size.height/2, self.size.height - enemy.size.height/2));
-    [self addChild:enemy];
+    CGPoint enemyScenePos = CGPointMake(self.size.width + enemy.size.width/2, ScalarRandomRange(enemy.size.height/2, self.size.height - enemy.size.height/2));
+    enemy.position = [self convertPoint:enemyScenePos toNode:_bgLayer];
+    [_bgLayer addChild:enemy];
     
-    SKAction *actionMove = [SKAction moveToX:-enemy.size.width/2 duration:2.0];
+    SKAction *actionMove = [SKAction moveByX: - self.size.width + enemy.size.width y:0 duration:2.0];
     //removeFromParent removes the node that's running the action from its parent
     SKAction *actionRemove = [SKAction removeFromParent];
     [enemy runAction:[SKAction sequence:@[actionMove, actionRemove]]];
@@ -277,12 +287,13 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 {
     SKSpriteNode *cat = [SKSpriteNode spriteNodeWithImageNamed:@"cat"];
     cat.name = @"cat";
-    cat.position = CGPointMake(ScalarRandomRange(0, self.size
-                                                 .width), ScalarRandomRange(0, self.size.height));
+    CGPoint catScenePos = CGPointMake(ScalarRandomRange(0, self.size
+                                                        .width), ScalarRandomRange(0, self.size.height));
+    cat.position = [self convertPoint:catScenePos toNode:_bgLayer];
     cat.xScale = 0;
     cat.yScale = 0;
     cat.zRotation = 0;
-    [self addChild:cat];
+    [_bgLayer addChild:cat];
     
     SKAction *appear = [SKAction scaleTo:1.0 duration:0.5];
     SKAction *leftWiggle = [SKAction rotateByAngle:M_PI/8 duration:0.5];
@@ -330,7 +341,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 
 - (void)checkCollisions
 {
-    [self enumerateChildNodesWithName:@"cat" usingBlock:^(SKNode *node, BOOL *stop){
+    [_bgLayer enumerateChildNodesWithName:@"cat" usingBlock:^(SKNode *node, BOOL *stop){
         SKSpriteNode *cat = (SKSpriteNode*)node;
         if(CGRectIntersectsRect(cat.frame, _zombie.frame))
         {
@@ -345,7 +356,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     
     if (_isZombieInvincible) return;
     
-    [self enumerateChildNodesWithName:@"enemy" usingBlock:^(SKNode *node, BOOL *stop){
+    [_bgLayer enumerateChildNodesWithName:@"enemy" usingBlock:^(SKNode *node, BOOL *stop){
         SKSpriteNode *enemy = (SKSpriteNode*)node;
         //shrink the collider box a little bit
         CGRect smallerFrame = CGRectInset(enemy.frame, 20, 20);
@@ -378,7 +389,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 {
     __block int trainCount = 0;
     __block CGPoint targetPosition = _zombie.position;
-    [self enumerateChildNodesWithName:@"train" usingBlock:^(SKNode *node, BOOL *stop){
+    [_bgLayer enumerateChildNodesWithName:@"train" usingBlock:^(SKNode *node, BOOL *stop){
         if(!node.hasActions)
         {
             trainCount++;
@@ -407,7 +418,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 - (void)loseCat
 {
     __block int loseCount = 0;
-    [self enumerateChildNodesWithName:@"train" usingBlock:^(SKNode *node, BOOL *stop){
+    [_bgLayer enumerateChildNodesWithName:@"train" usingBlock:^(SKNode *node, BOOL *stop){
         CGPoint randomSpot = node.position;
         randomSpot.x += ScalarRandomRange(-100, 100);
         randomSpot.y += ScalarRandomRange(-100, 100);
@@ -432,6 +443,24 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     _backgroundMusicPlayer.numberOfLoops = -1;
     [_backgroundMusicPlayer prepareToPlay];
     [_backgroundMusicPlayer play];
+}
+
+#pragma mark - background movement
+
+- (void)moveBackground
+{
+    CGPoint bgVelocity = CGPointMake(-BG_MOVE_POINTS_PER_SEC, 0);
+    CGPoint amountToMove = CGPointMultiplyScalar(bgVelocity, _dt);
+    _bgLayer.position = CGPointAdd(_bgLayer.position, amountToMove);
+    
+    [_bgLayer enumerateChildNodesWithName:@"bg" usingBlock:^(SKNode *node, BOOL *stop){
+        SKSpriteNode *bg = (SKSpriteNode*)node;
+        CGPoint bgScreenPos = [_bgLayer convertPoint:bg.position toNode:self];
+        if(bgScreenPos.x <= -bg.size.width)
+        {
+            bg.position = CGPointMake(bg.position.x + bg.size.width * 2, bg.position.y);
+        }
+    }];
 }
 
 @end
