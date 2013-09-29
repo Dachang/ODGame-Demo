@@ -6,7 +6,9 @@
 //  Copyright (c) 2013年 大畅. All rights reserved.
 //
 
+@import AVFoundation;
 #import "MyScene.h"
+#import "GameOverScene.h"
 
 #define ARC4RANDOM_MAX 0x100000000
 
@@ -83,16 +85,24 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     SKAction *_enemyCollisionSound;
     SKAction *_zombieBlinkAction;
     BOOL _isZombieInvincible;
+    int _lives;
+    BOOL _gameOver;
+    AVAudioPlayer *_backgroundMusicPlayer;
 }
 
 - (id) initWithSize:(CGSize)size
 {
     if(self = [super initWithSize:size])
     {
-        self.backgroundColor = [SKColor whiteColor];
+        //set game info
+        _lives = 5;
+        _gameOver = NO;
         //create bg
+        self.backgroundColor = [SKColor whiteColor];
         SKSpriteNode *bg = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
         bg.position = CGPointMake(self.size.width/2, self.size.height/2);
+        //create background music
+        [self playBackgroundMusic:@"bgMusic.mp3"];
         //create zombie
         _zombie = [SKSpriteNode spriteNodeWithImageNamed:@"zombie1"];
         _zombie.position = CGPointMake(100.0f, 100.0f);
@@ -153,6 +163,15 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         [self rotateSprite:_zombie toDirection:_velocity rotateRadiansPerSec:ZOMBIE_ROTATE_RADIANS_PER_SEC];
     }
     [self moveTrain];
+    //check lose condition
+    if(_lives < 0 && !_gameOver)
+    {
+        [_backgroundMusicPlayer stop];
+        _gameOver = YES;
+        SKScene *gameOverScene = [[GameOverScene alloc] initWithSize:self.size won:NO];
+        SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+        [self.view presentScene:gameOverScene transition:reveal];
+    }
 }
 
 - (void)moveSprite:(SKSpriteNode*)sprite velocity:(CGPoint)velocity
@@ -333,6 +352,8 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         if(CGRectIntersectsRect(smallerFrame, _zombie.frame))
         {
             [self runAction:_enemyCollisionSound];
+            [self loseCat];
+            _lives--;
             _isZombieInvincible = YES;
             [self blinkAnimation];
             SKAction *sequence = [SKAction sequence:@[_zombieBlinkAction, [SKAction runBlock:^{
@@ -355,10 +376,12 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 
 - (void)moveTrain
 {
+    __block int trainCount = 0;
     __block CGPoint targetPosition = _zombie.position;
     [self enumerateChildNodesWithName:@"train" usingBlock:^(SKNode *node, BOOL *stop){
         if(!node.hasActions)
         {
+            trainCount++;
             float actionDuration = 0.3;
             CGPoint offset = CGPointSubstract(targetPosition, node.position);
             CGPoint direction = CGPointNormalize(offset);
@@ -369,6 +392,46 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         }
         targetPosition = node.position;
     }];
+    if (trainCount >= 30 && !_gameOver)
+    {
+        [_backgroundMusicPlayer stop];
+        _gameOver = YES;
+        SKScene *gameOverScene = [[GameOverScene alloc] initWithSize:self.size  won:YES];
+        SKTransition *reveal = [SKTransition flipHorizontalWithDuration:0.5];
+        [self.view presentScene:gameOverScene transition:reveal];
+    }
+}
+
+#pragma mark - helper method keep track of how mant cats have been removed from the line
+
+- (void)loseCat
+{
+    __block int loseCount = 0;
+    [self enumerateChildNodesWithName:@"train" usingBlock:^(SKNode *node, BOOL *stop){
+        CGPoint randomSpot = node.position;
+        randomSpot.x += ScalarRandomRange(-100, 100);
+        randomSpot.y += ScalarRandomRange(-100, 100);
+        
+        node.name = @"";
+        [node runAction:[SKAction sequence:@[[SKAction group:@[[SKAction rotateByAngle:M_PI * 4 duration:1.0], [SKAction moveTo:randomSpot duration:1.0], [SKAction scaleTo:0 duration:1.0]]],[SKAction removeFromParent]]]];
+        
+        loseCount++;
+        if(loseCount >= 2)
+        {
+            *stop = YES;
+        }
+    }];
+}
+
+#pragma mark - background Music
+- (void)playBackgroundMusic:(NSString *)filename
+{
+    NSError *error;
+    NSURL *backgroundMusicURL = [[NSBundle mainBundle] URLForResource:filename withExtension:nil];
+    _backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+    _backgroundMusicPlayer.numberOfLoops = -1;
+    [_backgroundMusicPlayer prepareToPlay];
+    [_backgroundMusicPlayer play];
 }
 
 @end

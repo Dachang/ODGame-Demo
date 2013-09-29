@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		136DFEAB17F84FD70023DDE2 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 136DFEAA17F84FD70023DDE2 /* GameOverScene.m */; };
+		136DFEAF17F85E380023DDE2 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 136DFEAE17F85E380023DDE2 /* MainMenuScene.m */; };
 		13D56AF817F335F100AE024E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AF717F335F100AE024E /* Foundation.framework */; };
 		13D56AFA17F335F100AE024E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AF917F335F100AE024E /* CoreGraphics.framework */; };
 		13D56AFC17F335F100AE024E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AFB17F335F100AE024E /* UIKit.framework */; };
@@ -62,6 +64,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		136DFEA917F84FD70023DDE2 /* GameOverScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameOverScene.h; sourceTree = "<group>"; };
+		136DFEAA17F84FD70023DDE2 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
+		136DFEAD17F85E380023DDE2 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
+		136DFEAE17F85E380023DDE2 /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
 		13D56AF417F335F100AE024E /* ODGameOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ODGameOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13D56AF717F335F100AE024E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		13D56AF917F335F100AE024E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -137,6 +143,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		136DFEAC17F85E160023DDE2 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				136DFEAD17F85E380023DDE2 /* MainMenuScene.h */,
+				136DFEAE17F85E380023DDE2 /* MainMenuScene.m */,
+				13D56B1117F335F100AE024E /* MyScene.h */,
+				13D56B1217F335F100AE024E /* MyScene.m */,
+				136DFEA917F84FD70023DDE2 /* GameOverScene.h */,
+				136DFEAA17F84FD70023DDE2 /* GameOverScene.m */,
+			);
+			name = Scene;
+			sourceTree = "<group>";
+		};
 		13D56AEB17F335F100AE024E = {
 			isa = PBXGroup;
 			children = (
@@ -172,13 +191,12 @@
 		13D56AFF17F335F100AE024E /* ODGameOne */ = {
 			isa = PBXGroup;
 			children = (
+				136DFEAC17F85E160023DDE2 /* Scene */,
 				13D56B0817F335F100AE024E /* AppDelegate.h */,
 				13D56B0917F335F100AE024E /* AppDelegate.m */,
 				13D56B0B17F335F100AE024E /* Main.storyboard */,
 				13D56B0E17F335F100AE024E /* ViewController.h */,
 				13D56B0F17F335F100AE024E /* ViewController.m */,
-				13D56B1117F335F100AE024E /* MyScene.h */,
-				13D56B1217F335F100AE024E /* MyScene.m */,
 				13D56B1417F335F100AE024E /* Spaceship.png */,
 				13D56B1617F335F100AE024E /* Images.xcassets */,
 				13D56B0017F335F100AE024E /* Supporting Files */,
@@ -394,6 +412,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				136DFEAB17F84FD70023DDE2 /* GameOverScene.m in Sources */,
+				136DFEAF17F85E380023DDE2 /* MainMenuScene.m in Sources */,
 				13D56B1317F335F100AE024E /* MyScene.m in Sources */,
 				13D56B1017F335F100AE024E /* ViewController.m in Sources */,
 				13D56B0A17F335F100AE024E /* AppDelegate.m in Sources */,
@@ -608,6 +628,7 @@
 				13D56B2F17F335F100AE024E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		13D56B3017F335F100AE024E /* Build configuration list for PBXNativeTarget "ODGameOneTests" */ = {
 			isa = XCConfigurationList;
@@ -616,6 +637,7 @@
 				13D56B3217F335F100AE024E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
