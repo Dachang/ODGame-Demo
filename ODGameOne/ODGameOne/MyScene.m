@@ -90,6 +90,8 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     BOOL _gameOver;
     AVAudioPlayer *_backgroundMusicPlayer;
     SKNode *_bgLayer; //create an empty node that is treated as the "background layer"
+    int _numOfCats;
+    SKLabelNode *_scoreLabel;
 }
 
 - (id) initWithSize:(CGSize)size
@@ -98,6 +100,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
     {
         //set game info
         _lives = 5;
+        _numOfCats = 0;
         _gameOver = NO;
         //create bg
         _bgLayer = [SKNode node];
@@ -113,6 +116,8 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         }
         //create background music
         [self playBackgroundMusic:@"bgMusic.mp3"];
+        //create HUD
+        [self setupUI];
         //create zombie
         _zombie = [SKSpriteNode spriteNodeWithImageNamed:@"zombie1"];
         _zombie.position = CGPointMake(100.0f, 100.0f);
@@ -172,6 +177,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
 //    }
     [self moveTrain];
     [self moveBackground];
+    [self updateUI];
     //check lose condition
     if(_lives < 0 && !_gameOver)
     {
@@ -346,6 +352,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         if(CGRectIntersectsRect(cat.frame, _zombie.frame))
         {
             [self runAction:_catCollisionSound];
+            _numOfCats++;
             cat.name = @"train";
             [cat removeAllActions];
             [cat setScale:1.0];
@@ -364,6 +371,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         {
             [self runAction:_enemyCollisionSound];
             [self loseCat];
+            _numOfCats--;
             _lives--;
             _isZombieInvincible = YES;
             [self blinkAnimation];
@@ -427,7 +435,7 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
         [node runAction:[SKAction sequence:@[[SKAction group:@[[SKAction rotateByAngle:M_PI * 4 duration:1.0], [SKAction moveTo:randomSpot duration:1.0], [SKAction scaleTo:0 duration:1.0]]],[SKAction removeFromParent]]]];
         
         loseCount++;
-        if(loseCount >= 2)
+        if(loseCount >= 1)
         {
             *stop = YES;
         }
@@ -461,6 +469,24 @@ static const float ZOMBIE_ROTATE_RADIANS_PER_SEC = 2 * M_PI;
             bg.position = CGPointMake(bg.position.x + bg.size.width * 2, bg.position.y);
         }
     }];
+}
+
+#pragma mark - game UI
+
+- (void)setupUI
+{
+    _scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Gill Sans"];
+    _scoreLabel.fontSize = 20.0;
+    _scoreLabel.text = @"Score: 0";
+    _scoreLabel.name = @"scoreLabel";
+    _scoreLabel.verticalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    _scoreLabel.position = CGPointMake(self.size.width - _scoreLabel.frame.size.width + 20, self.size.height - _scoreLabel.frame.size.height - 10);
+    [self addChild:_scoreLabel];
+}
+
+- (void)updateUI
+{
+    _scoreLabel.text = [NSString stringWithFormat:@"Score: %d", _numOfCats];
 }
 
 @end

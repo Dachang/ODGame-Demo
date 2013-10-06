@@ -51,4 +51,10 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+#pragma mark - hide status bar
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 @end
