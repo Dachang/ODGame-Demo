@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		136DFEAB17F84FD70023DDE2 /* GameOverScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 136DFEAA17F84FD70023DDE2 /* GameOverScene.m */; };
 		136DFEAF17F85E380023DDE2 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 136DFEAE17F85E380023DDE2 /* MainMenuScene.m */; };
+		13CF6515180162F30035AD07 /* SKAction+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CF650C180162F30035AD07 /* SKAction+SKTExtras.m */; };
+		13CF6516180162F30035AD07 /* SKEmitterNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CF650E180162F30035AD07 /* SKEmitterNode+SKTExtras.m */; };
+		13CF6517180162F30035AD07 /* SKNode+SKTExtras.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CF6510180162F30035AD07 /* SKNode+SKTExtras.m */; };
+		13CF6518180162F30035AD07 /* SKTAudio.m in Sources */ = {isa = PBXBuildFile; fileRef = 13CF6512180162F30035AD07 /* SKTAudio.m */; };
+		13CF6519180162F30035AD07 /* SKTUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13CF6514180162F30035AD07 /* SKTUtils.mm */; };
 		13D56AF817F335F100AE024E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AF717F335F100AE024E /* Foundation.framework */; };
 		13D56AFA17F335F100AE024E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AF917F335F100AE024E /* CoreGraphics.framework */; };
 		13D56AFC17F335F100AE024E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13D56AFB17F335F100AE024E /* UIKit.framework */; };
@@ -68,6 +73,16 @@
 		136DFEAA17F84FD70023DDE2 /* GameOverScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOverScene.m; sourceTree = "<group>"; };
 		136DFEAD17F85E380023DDE2 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
 		136DFEAE17F85E380023DDE2 /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
+		13CF650B180162F30035AD07 /* SKAction+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKAction+SKTExtras.h"; sourceTree = "<group>"; };
+		13CF650C180162F30035AD07 /* SKAction+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKAction+SKTExtras.m"; sourceTree = "<group>"; };
+		13CF650D180162F30035AD07 /* SKEmitterNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKEmitterNode+SKTExtras.h"; sourceTree = "<group>"; };
+		13CF650E180162F30035AD07 /* SKEmitterNode+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKEmitterNode+SKTExtras.m"; sourceTree = "<group>"; };
+		13CF650F180162F30035AD07 /* SKNode+SKTExtras.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKNode+SKTExtras.h"; sourceTree = "<group>"; };
+		13CF6510180162F30035AD07 /* SKNode+SKTExtras.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKNode+SKTExtras.m"; sourceTree = "<group>"; };
+		13CF6511180162F30035AD07 /* SKTAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTAudio.h; sourceTree = "<group>"; };
+		13CF6512180162F30035AD07 /* SKTAudio.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTAudio.m; sourceTree = "<group>"; };
+		13CF6513180162F30035AD07 /* SKTUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTUtils.h; sourceTree = "<group>"; };
+		13CF6514180162F30035AD07 /* SKTUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SKTUtils.mm; sourceTree = "<group>"; };
 		13D56AF417F335F100AE024E /* ODGameOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ODGameOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13D56AF717F335F100AE024E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		13D56AF917F335F100AE024E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -156,9 +171,27 @@
 			name = Scene;
 			sourceTree = "<group>";
 		};
+		13CF650A180162F30035AD07 /* SKTUtils */ = {
+			isa = PBXGroup;
+			children = (
+				13CF650B180162F30035AD07 /* SKAction+SKTExtras.h */,
+				13CF650C180162F30035AD07 /* SKAction+SKTExtras.m */,
+				13CF650D180162F30035AD07 /* SKEmitterNode+SKTExtras.h */,
+				13CF650E180162F30035AD07 /* SKEmitterNode+SKTExtras.m */,
+				13CF650F180162F30035AD07 /* SKNode+SKTExtras.h */,
+				13CF6510180162F30035AD07 /* SKNode+SKTExtras.m */,
+				13CF6511180162F30035AD07 /* SKTAudio.h */,
+				13CF6512180162F30035AD07 /* SKTAudio.m */,
+				13CF6513180162F30035AD07 /* SKTUtils.h */,
+				13CF6514180162F30035AD07 /* SKTUtils.mm */,
+			);
+			path = SKTUtils;
+			sourceTree = "<group>";
+		};
 		13D56AEB17F335F100AE024E = {
 			isa = PBXGroup;
 			children = (
+				13CF650A180162F30035AD07 /* SKTUtils */,
 				13D56B3317F33A2F00AE024E /* Art */,
 				13D56AFF17F335F100AE024E /* ODGameOne */,
 				13D56B2317F335F100AE024E /* ODGameOneTests */,
@@ -413,11 +446,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				136DFEAB17F84FD70023DDE2 /* GameOverScene.m in Sources */,
+				13CF6517180162F30035AD07 /* SKNode+SKTExtras.m in Sources */,
 				136DFEAF17F85E380023DDE2 /* MainMenuScene.m in Sources */,
 				13D56B1317F335F100AE024E /* MyScene.m in Sources */,
+				13CF6519180162F30035AD07 /* SKTUtils.mm in Sources */,
+				13CF6515180162F30035AD07 /* SKAction+SKTExtras.m in Sources */,
 				13D56B1017F335F100AE024E /* ViewController.m in Sources */,
 				13D56B0A17F335F100AE024E /* AppDelegate.m in Sources */,
+				13CF6516180162F30035AD07 /* SKEmitterNode+SKTExtras.m in Sources */,
 				13D56B0617F335F100AE024E /* main.m in Sources */,
+				13CF6518180162F30035AD07 /* SKTAudio.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
